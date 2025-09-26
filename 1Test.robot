@@ -2,6 +2,7 @@
 Documentation  Rest Api Testing with Request Library
 Library        RequestsLibrary
 Library        JSONLibrary
+Library        OperatingSystem
 
 *** Variables ***
 ${URL}  https://jsonplaceholder.typicode.com
@@ -11,6 +12,7 @@ ${URL}  https://jsonplaceholder.typicode.com
 GET Request All Posts
     [Documentation]  Get Request - retrieve all posts
     GET  url=${URL}/posts  expected_status=200
+    
 
 GET Request and Parse Response Object
     [Documentation]  Retrieve all posts and parse response Object
@@ -19,6 +21,12 @@ GET Request and Parse Response Object
         FOR    ${item}    IN    @{response.json()}
             Log To Console    ID: ${item['userId']} | Title: ${item['title']}
         END 
+
+GET Request All Posts and save it To File
+    [Documentation]  Get Request - retrieve all posts
+    ${response}=   GET  url=${URL}/posts  expected_status=200
+    ${json_data}=  Convert String To Json   ${response.content}
+    Dump Json To File   AllPost.txt   ${json_data}   encoding=UTF8   
 
 GET Request - filter by specific endpoint
     [Documentation]  Retrieve specific response object -by specific URI

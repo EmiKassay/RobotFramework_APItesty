@@ -1,7 +1,0 @@
-log.html
-report.html 
-output.xml 
-Include/ 
-Lib/ 
-Scripts/ 
-pyvenv.cfg
